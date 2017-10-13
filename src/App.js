@@ -23,13 +23,35 @@ const Bottom = styled.h3`
   font-weight: 100;
 `
 
+
+
 class App extends Component {
+  constructor(){
+    super();
+    this.randomBackground = this.randomBackground.bind(this);
+  }
+  randomBackground() {
+    let colorArray = [];    
+
+    let brightness = 80;
+    
+    colorArray.push(Math.floor(Math.random() * (255 - brightness) + brightness ));
+    colorArray.push(Math.floor(Math.random() * (255 - brightness) + brightness ));
+    colorArray.push(Math.floor(Math.random() * (255 - brightness) + brightness ));
+    // rgb -> hex
+    let color = "#"+colorArray.map( x => x.toString(16)).join('');
+    document.body.style.background = color;
+  }
+
+  componentWillMount(){
+    this.randomBackground();
+  }
 
   render() {
     return (
       <Game>
         <Header>tic-tac-toe</Header>
-        <Board />
+        <Board randomBackground={this.randomBackground}/>
         <Bottom>By Karol Swierczek</Bottom>
       </Game>
     );

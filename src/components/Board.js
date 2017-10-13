@@ -79,6 +79,7 @@ class Board extends Component {
       squares: Array(9).fill(null),
       XisNext: true
     })
+    this.props.randomBackground();
   }
 
   render() {
@@ -177,23 +178,25 @@ class Board extends Component {
         <p>{whoIsNext}</p>
         <p>{winner}</p>
         <BoardStyle>
-          <Row>
-            <th>{this.renderSquare(0)}</th>
-            <th>{this.renderSquare(1)}</th>
-            <th>{this.renderSquare(2)}</th>
-          </Row>
-          <Row>
-            <th>{this.renderSquare(3)}</th>
-            <th>{this.renderSquare(4)}</th>
-            <th>{this.renderSquare(5)}</th>
-          </Row>
-          <Row>
-            <th>{this.renderSquare(6)}</th>
-            <th>{this.renderSquare(7)}</th>
-            <th>{this.renderSquare(8)}</th>
-          </Row>
+          <tbody>
+            <Row>
+              <th>{this.renderSquare(0)}</th>
+              <th>{this.renderSquare(1)}</th>
+              <th>{this.renderSquare(2)}</th>
+            </Row>
+            <Row>
+              <th>{this.renderSquare(3)}</th>
+              <th>{this.renderSquare(4)}</th>
+              <th>{this.renderSquare(5)}</th>
+            </Row>
+            <Row>
+              <th>{this.renderSquare(6)}</th>
+              <th>{this.renderSquare(7)}</th>
+              <th>{this.renderSquare(8)}</th>
+            </Row>
+          </tbody>
         </BoardStyle>
-        <ButtonStyle onClick={this.restart}><img src="images/refresh.png" height="50"/></ButtonStyle>
+        <ButtonStyle onClick={this.restart}><img src="images/refresh.png" height="50" alt="Restart"/></ButtonStyle>
       </div>
     );
   }
