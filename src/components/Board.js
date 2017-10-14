@@ -13,21 +13,6 @@ const Row = styled.tr`
 
 `
 
-const ButtonStyle = styled.button`
-  margin: 7px;
-  padding: 0;
-  background: #000;
-  width: 170px;
-  height: 80px;
-  border-radius: 18px;
-  border: none;
-  transition-duration: 0.3s;
-  &:hover{
-    background: #ccc;
-    transition-duration: 0.3s;
-  }
-`
-
 class Board extends Component {
 
   constructor(props) {
@@ -35,7 +20,7 @@ class Board extends Component {
     this.state = {
       squares: Array(9).fill(null),
       XisNext: true,
-      playVsAI: true
+      gameHasEnded: false
     };
     this.checkIfGameHasEnded = this.checkIfGameHasEnded.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -47,24 +32,29 @@ class Board extends Component {
   }
 
   checkIfGameHasEnded(squares){
-    var winCombinations = [
-      [0,1,2],[3,4,5],[6,7,8], // Rows
-      [0,3,6],[1,4,7],[2,5,8], // Columns
-      [0,4,8],[2,4,6] // Diagonally
-    ];
+      var winCombinations = [
+        [0,1,2],[3,4,5],[6,7,8], // Rows
+        [0,3,6],[1,4,7],[2,5,8], // Columns
+        [0,4,8],[2,4,6] // Diagonally
+      ];
 
-    for(let i=0; i<winCombinations.length;i++){
-      const [a, b, c] = winCombinations[i];
-      if(squares[a] && squares[a] === squares[b] && squares[a] === squares[c]){
-        return squares[a];
+      for(let i=0; i<winCombinations.length;i++){
+        const [a, b, c] = winCombinations[i];
+        if(squares[a] && squares[a] === squares[b] && squares[a] === squares[c]){
+          if(!this.state.gameHasEnded){
+            this.setState({
+              gameHasEnded: true
+            });
+          }
+          return squares[a];
+        }
       }
-    }
-    return null;
+      return null;
   }
 
   handleClick(i){
     var squares = this.state.squares.slice();
-    if(!squares[i]){ // Check if clicked square is empty
+    if(!squares[i] && !this.state.gameHasEnded){ // Check if clicked square is empty
       squares[i] = this.state.XisNext ? "X" : "O"; 
       
       this.setState({
@@ -77,7 +67,8 @@ class Board extends Component {
   restart(){
     this.setState({
       squares: Array(9).fill(null),
-      XisNext: true
+      XisNext: true,
+      gameHasEnded: false
     })
     this.props.randomBackground();
   }
@@ -102,7 +93,7 @@ class Board extends Component {
 
     /* MAGICAL AI */
 
-    if(this.state.playVsAI && !this.state.XisNext){
+    if(this.props.playVsAI && !this.state.XisNext && !this.state.gameHasEnded){
 
       var squares = this.state.squares.slice();
 
@@ -196,7 +187,7 @@ class Board extends Component {
             </Row>
           </tbody>
         </BoardStyle>
-        <ButtonStyle onClick={this.restart}><img src="images/refresh.png" height="50" alt="Restart"/></ButtonStyle>
+        <button onClick={this.restart}><img src="images/refresh.png" height="50" alt="Restart"/></button>
       </div>
     );
   }

@@ -1,8 +1,29 @@
 @import url('https://fonts.googleapis.com/css?family=Rammetto+One');
 body{
+    font-family: 'Rammetto One', cursive;
+    font-size: 28px;
     background: #ed6a5a;
     margin: 0;
     padding: 0;
     width: 100%;
     height: 100%;
+}
+
+button{
+    font-family: 'Rammetto One', cursive;
+    font-size: 16px;
+    color: #fff;
+    margin: 7px;
+    padding: 0;
+    background: #000;
+    width: 170px;
+    height: 80px;
+    border-radius: 18px;
+    border: none;
+    transition-duration: 0.3s;    
+}
+
+button:hover{
+    background: #ccc;
+    transition-duration: 0.3s;
 }

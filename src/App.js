@@ -4,8 +4,6 @@ import styled from 'styled-components';
 import Board from './components/Board'
 
 const Game = styled.div`
-  font-family: 'Rammetto One', cursive;
-  font-size: 28px;
   line-height: 18px;
   text-align: center;
   cursor: default;
@@ -23,12 +21,16 @@ const Bottom = styled.h3`
   font-weight: 100;
 `
 
-
-
 class App extends Component {
   constructor(){
     super();
     this.randomBackground = this.randomBackground.bind(this);
+    this.startGame = this.startGame.bind(this);
+    this.endGame = this.endGame.bind(this);
+    this.state = {
+      gameHasStarted: false,
+      playVsAI: false
+    };
   }
   randomBackground() {
     let colorArray = [];    
@@ -47,11 +49,49 @@ class App extends Component {
     this.randomBackground();
   }
 
+  startGame(playVsAI){
+    if(playVsAI){
+      this.setState({
+        playVsAI: true
+      });
+    }else{
+      this.setState({
+        playVsAI: false
+      });      
+    }
+    this.setState({
+      gameHasStarted: true
+    });
+  }
+
+  endGame(){
+    this.setState({
+      gameHasStarted: false
+    });
+  }
+
   render() {
+
+    var gameCard;
+    var backButton;
+
+    if(!this.state.gameHasStarted){
+      gameCard = (
+        <div>
+          <button onClick={()=>{this.startGame(true)}}>Play VS AI</button>
+          <button onClick={()=>{this.startGame(false)}}>Play VS Friend</button>
+        </div>
+      );
+    }else{
+      gameCard = <Board randomBackground={this.randomBackground} playVsAI={this.state.playVsAI}/>
+      backButton = <button onClick={this.endGame}>Back</button>
+    }
+
     return (
       <Game>
         <Header>tic-tac-toe</Header>
-        <Board randomBackground={this.randomBackground}/>
+        {gameCard}
+        {backButton}
         <Bottom>By Karol Swierczek</Bottom>
       </Game>
     );
