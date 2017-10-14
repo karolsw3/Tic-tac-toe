@@ -10,6 +10,10 @@ const Game = styled.div`
   color: #fff;
   margin: 0;
   font-weight: 900;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `
 
 const Header = styled.h1`
@@ -84,7 +88,7 @@ class App extends Component {
       );
     }else{
       gameCard = <Board randomBackground={this.randomBackground} playVsAI={this.state.playVsAI}/>
-      backButton = <button onClick={this.endGame}>Back</button>
+      backButton = <button onClick={this.endGame}><img src="images/back.png" height="40" alt="Back"/></button>
     }
 
     return (
