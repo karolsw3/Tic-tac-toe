@@ -10,10 +10,12 @@ const Game = styled.div`
   color: #fff;
   margin: 0;
   font-weight: 900;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  @media (min-width: 900px) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 `
 
 const Header = styled.h1`
